@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "shadow-cljs": "2.8.73"
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.15.1",
+    "create-react-class": "15.6.3",
+    "highlight.js": "9.15.10",
+    "immutable": "^4.0.0-rc.12",
+    "is-hotkey": "^0.1.6",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-highlight.js": "1.0.7",
+    "slate": "^0.47.9",
+    "slate-html-serializer": "^0.8.11",
+    "slate-react": "^0.22.10"
+  }
+}
