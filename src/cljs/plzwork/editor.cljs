@@ -8,14 +8,11 @@
 (defn make-editor [div-id]
   (e. div-id))
 
-(defn content []
+(defn content [editor]
   (.save @editor))
-
-(defn load [content]
-  ())
 
 (defn editor-panel []
   (r/create-class 
-   {:component-did-mount (fn [this] (reset! editor (make-editor "codex")))
+   {:component-did-mount (fn [this] (reset! editor (make-editor (clj->js {:holder "codex" :autofocus true :placeholder "T Y P E"}))))
     :reagent-render (fn [] [:div#codex {:style {:background "red" :font "serif"}}])}))
 
