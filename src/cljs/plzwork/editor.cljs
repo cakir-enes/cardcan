@@ -20,5 +20,5 @@
 (defn editor-panel []
   (r/create-class 
    {:component-did-mount (fn [this] (reset! editor (make-editor "codex")))
-    :reagent-render (fn [] [:div#codex {:style {:background "red" :font "serif"}}])}))
+    :reagent-render (fn [] [:div [:div#codex {:style {}}]])}))
 
