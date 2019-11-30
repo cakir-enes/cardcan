@@ -26,3 +26,8 @@
  ::card-meta
  (fn [db]
    (:card-meta db)))
+
+(rf/reg-sub
+ ::refs
+ (fn [db]
+   (-> db :card-meta :refs)))
