@@ -1,9 +1,12 @@
 {
   "devDependencies": {
+    "@editorjs/list": "^1.4.0",
     "shadow-cljs": "2.8.73"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.15.1",
+    "@editorjs/header": "^2.3.1",
+    "@editorjs/quote": "^2.3.0",
     "create-react-class": "15.6.3",
     "highlight.js": "9.15.10",
     "immutable": "^4.0.0-rc.12",
