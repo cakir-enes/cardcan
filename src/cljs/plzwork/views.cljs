@@ -1,5 +1,6 @@
 (ns plzwork.views
   (:require
+   [reagent.core :as r]
    [re-frame.core :as rf]
    [plzwork.subs :as subs]
    [plzwork.editor :as edi]))
@@ -24,6 +25,11 @@
               ^{:key ref}
               [:li [:h4 (:id ref)]]))]))
 
+(def spotlight? (r/atom false))
+(defn add-shortcuts! []
+  (set! (.-onkeydown js/document)
+        #(do (when (= (.-key %) "Escape") (reset! spotlight? false) ) (when (and (.-ctrlKey %) (= (.-key %) " ")) (swap! spotlight? not)))))
+
 (defn ref-view []
   (let [from? (reagent.core/atom true)]
     [:div {:style {:margin-top "0.50em"}}
@@ -31,18 +37,38 @@
      [ref-list from?]]))
 
 
-(defn main-panel []
-  (let [name (rf/subscribe [::subs/name])]
-    [:div
-     {:style {
-
-              :background-image "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)"
-              ; :background "#3d3d3f"
-              :display "grid" :grid-template-columns "1fr 4fr 1fr"
-              :color "#3d3d3f"
-              :border-radius "10px"
-              :grid-column-gap "20px"}}
-     [:div {:style {:border-right "2px solid #DEDEDA"}} [ref-view]]
-     [edi/editor-panel]
-     [:div {:style {:background ""}}]]))
+(defn spotlight []
+  )
+(defn main-panel []    
+  (add-shortcuts!)
+  (fn []
+    (let [name (rf/subscribe [::subs/name])]
+      [:div
+       {:style {:background-image "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)"
+                ; :background "#3d3d3f"
+                :display "grid" :grid-template-columns "1fr 4fr 1fr"
+                :color "#3d3d3f"
+                :border-radius "10px"}}
+       [:div {:style {:border-right "2px solid #DEDEDA"}} [ref-view]]
+       [:div {:style {:justify-content "center"}}
+        [edi/editor-panel] 
+       
+        [:div#modal 
+         {:style {
+                  ; :display (when (not @spotlight?) "none")
+                  :position "relative" :z-index 4 :bottom "70vh"   :width "100%" :height "100px"  :justify-content "center"}}
+         [:div#command {:style {:display (when (not @spotlight?) "none")
+                                :position "relative"
+                                :margin-left "50px" :top "30px" :width "550px" :height "50px" :background "rgba(0, 21, 41, 0.97)"
+                                :color "white"}}
+          [:input {:auto-focus true
+                   :placeholder "Command"
+                   
+                   :style {:font-size "1.7em" :width "100%" :height "100%"   :background "rgba(0, 21, 41, 0.97)"}}]
+          [:ul [:li "ABC"] [:li "ZXC"]]]
+          ]
+         
+        ]
+       
+       [:div {:style {:background ""}}]])))
 
