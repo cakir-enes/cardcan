@@ -3,7 +3,8 @@
    [reagent.core :as r]
    [re-frame.core :as rf]
    [plzwork.subs :as subs]
-   [plzwork.editor :as edi]))
+   [plzwork.editor :as edi]
+   [plzwork.events :as events]))
 
 
 (defn tgl-btn [on-change]
@@ -27,48 +28,58 @@
 
 (def spotlight? (r/atom false))
 (defn add-shortcuts! []
+  (.addEventListener js/document "click" #(reset! spotlight? false))
   (set! (.-onkeydown js/document)
-        #(do (when (= (.-key %) "Escape") (reset! spotlight? false) ) (when (and (.-ctrlKey %) (= (.-key %) " ")) (swap! spotlight? not)))))
+        #(do
+           (when (= (.-key %) "Escape")
+             (do
+               (reset! spotlight? false)
+               (rf/dispatch [::events/focus-editor])))
+           (when (and (.-ctrlKey %) (= (.-key %) " "))
+             (do
+               (if @spotlight? (rf/dispatch [::events/focus-editor]) (.focus (.getElementById js/document "cmd-txt")))
+               (swap! spotlight? not))))))
 
 (defn ref-view []
   (let [from? (reagent.core/atom true)]
-    [:div {:style {:margin-top "0.50em"}}
+    [:div.header {:style {:margin-top "0.50em"}}
      [ref-menu from?]
      [ref-list from?]]))
 
+(defn action [main opts shortcut]
+  [:div.cmd [:span.main main] [:span.opts opts] [:span.shortcut shortcut]])
 
 (defn spotlight []
-  )
+  [:div
+   [:div {:class (str "buscar-caja" (when @spotlight? "-hovered"))}
+    [:input.buscar-txt {:id "cmd-txt" :type "text" :auto-focus true :placeholder "Buscar..."}]
+    [:a.buscar-btn
+     [:i {:class "fa fa-hand-rock"}]]]
+   [:ul.cmd-list {:style {:display (when (not @spotlight?) "none")}}
+    [action "Open" "card" "o c"]
+    [action "Send" "inbox | todos" "s [i t]"]
+    [action "Query" "" "q"]
+    [action "Reference" "card | page" "r [c p]"]]])
+
+
 (defn main-panel []    
   (add-shortcuts!)
   (fn []
     (let [name (rf/subscribe [::subs/name])]
-      [:div
-       {:style {:background-image "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)"
-                ; :background "#3d3d3f"
-                :display "grid" :grid-template-columns "1fr 4fr 1fr"
-                :color "#3d3d3f"
-                :border-radius "10px"}}
-       [:div {:style {:border-right "2px solid #DEDEDA"}} [ref-view]]
-       [:div {:style {:justify-content "center"}}
-        [edi/editor-panel] 
-       
-        [:div#modal 
-         {:style {
-                  ; :display (when (not @spotlight?) "none")
-                  :position "relative" :z-index 4 :bottom "70vh"   :width "100%" :height "100px"  :justify-content "center"}}
-         [:div#command {:style {:display (when (not @spotlight?) "none")
-                                :position "relative"
-                                :margin-left "50px" :top "30px" :width "550px" :height "50px" :background "rgba(0, 21, 41, 0.97)"
-                                :color "white"}}
-          [:input {:auto-focus true
-                   :placeholder "Command"
-                   
-                   :style {:font-size "1.7em" :width "100%" :height "100%"   :background "rgba(0, 21, 41, 0.97)"}}]
-          [:ul [:li "ABC"] [:li "ZXC"]]]
-          ]
-         
+      [:div.container
+       [:div.refs [ref-view]]
+       [edi/editor-panel]
+       [:div.cmd-container 
+        [spotlight]
+        ; [:div.dash]
         ]
-       
-       [:div {:style {:background ""}}]])))
+      ;  [:div {:class (str "search" (when @spotlight? " open"))}
+        
+        ; [:input.search-box {:auto-focus true
+        ;                     :placeholder "Command"
+        ;                     :type "search"}]
+        ; [:span.search-button [:span
+        ;                       {:class (str "search-icon" (when @spotlight? " open"))}]]
+        ; ]
+      ])))
 

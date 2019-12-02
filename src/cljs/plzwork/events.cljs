@@ -3,6 +3,7 @@
    [re-frame.core :as rf]
    [plzwork.db :as db]
    [day8.re-frame.tracing :refer-macros [fn-traced defn-traced]]
+   [plzwork.editor :as e]
    ))
 
 (rf/reg-event-db
@@ -33,7 +34,17 @@
     :update-reffed-card {:unref? true :from (-> db :card-meta :id) :to (:id card-meta)}}))
 
 
+(rf/reg-event-fx
+ ::focus-editor
+ (fn [_ _]
+   {:focus-editor nil}))
+
 (rf/reg-fx
  :update-reffed-card
  (fn [{:keys [unref? from to]}]
    (println (if unref? "REF-DELETED: " "REF-ADDED: ") from "->" to)))
+
+(rf/reg-fx
+ :focus-editor
+ (fn []
+   (.focus @e/editor true)))
