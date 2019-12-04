@@ -31,9 +31,11 @@
  ::refs
  (fn [db]
    (let [refs (-> db :card-meta :refs)]
+     (println "Active: " (:active refs))
      ((:active refs) refs))))
 
 (rf/reg-sub
  ::spotlight?
  (fn [db]
+   (println "SPOT CAHGNEd " (:spotlight? db))
    (:spotlight? db)))

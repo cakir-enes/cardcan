@@ -8,15 +8,15 @@
 
 (defn tgl-btn []
   [:div
-   [:input#cb3.tgl.tgl-skewed {:type "checkbox" :on-change (rf/dispatch [::evts/toggle-ref-list])}]
+   [:input#cb3.tgl.tgl-skewed {:type "checkbox" :on-change  #(rf/dispatch [::evts/toggle-ref-list])}]
    [:label.tgl-btn
     {:for "cb3", :data-tg-on "TO", :data-tg-off "FROM"}]])
 
 (defn spotlight []
-  (let [spotlight? (rf/subscribe [::subs/spotlight?])]
+  (let [spotlight? @(rf/subscribe [::subs/spotlight?])]
     [:div.cmd-bar
-     [:input.cmd-txt {:placeholder "COMMAND" :id "cmd-txt"}]
-     [:ul.cmd-list {:style {:display (when (not @spotlight?) "none")}}
+     [:input.cmd-txt {:placeholder "COMMAND" :id "cmd-txt" :on-click #(do (println "CLICK") (rf/dispatch-sync [::evts/open-spotlight]))}]
+     [:ul.cmd-list {:style {:display (if (not spotlight?) "none" "block")}}
       [action "Open" "card" "o c"]
       [action "Send" "inbox | todos" "s [i t]"]
       [action "Query" "" "q"]

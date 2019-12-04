@@ -8,25 +8,23 @@
    [plzwork.views.header :as vh]))
 
 (defn ref-list []
-  (let [refs (rf/subscribe [::subs/refs])]
+  (let [refs @(rf/subscribe [::subs/refs])]
     [:ul.ref-list 
-     (doall (for [ref @refs]
+     (doall (for [ref refs]
               ^{:key ref}
               [:li [:h4 (:id ref)]]))]))
 
-
-
 (defn add-shortcuts! []
-  (.addEventListener js/document "click" #(rf/dispatch [::events/close-spotlight]))
+  (.addEventListener js/document "click"
+                     #(if (= "cmd-txt" (-> % .-target .-id)) (rf/dispatch [::events/open-spotlight]) (rf/dispatch [::events/close-spotlight])))
   (set! (.-onkeydown js/document)
         #(do
            (when (= (.-key %) "Escape") (rf/dispatch [::events/shortcut-pressed :ESC]))
            (when (and (.-ctrlKey %) (= (.-key %) " ")) (rf/dispatch [::events/shortcut-pressed :CTRL_SPC])))))
 
 (defn ref-view []
-  (let [from? (reagent.core/atom true)]
-    [:div.header {:style {:margin-top "0.50em"}}
-     [ref-list from?]]))
+  [:div.header {:style {:margin-top "0.50em"}}
+   [ref-list]])
 
 
 (defn main-panel []    

@@ -45,6 +45,7 @@
 (rf/reg-event-db
  ::open-spotlight
  (fn [db [_]]
+   (println "Spot " (-> db :spotlight?))
    (assoc db :spotlight? true)))
 
 (rf/reg-event-db
@@ -55,7 +56,7 @@
 (rf/reg-event-db
  ::toggle-ref-list
  (fn [db [_]]
-   (update-in db [:refs :active] #(if (= % :to) :from :to))))
+   (update-in db [:card-meta :refs :active] #(if (= % :to) :from :to))))
 
 (rf/reg-event-fx
  ::focus-editor
