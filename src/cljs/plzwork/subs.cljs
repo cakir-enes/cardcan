@@ -30,4 +30,10 @@
 (rf/reg-sub
  ::refs
  (fn [db]
-   (-> db :card-meta :refs)))
+   (let [refs (-> db :card-meta :refs)]
+     ((:active refs) refs))))
+
+(rf/reg-sub
+ ::spotlight?
+ (fn [db]
+   (:spotlight? db)))

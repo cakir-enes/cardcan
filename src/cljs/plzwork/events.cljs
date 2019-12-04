@@ -33,6 +33,29 @@
    {:db (update-in db [:card-meta :refs :to] #(filter (partial not= (:id card-meta))))
     :update-reffed-card {:unref? true :from (-> db :card-meta :id) :to (:id card-meta)}}))
 
+(rf/reg-event-fx
+ ::shortcut-pressed
+ (fn [{:keys [db]} [_ shortcut]]
+   (case shortcut
+     :ESC {:db (assoc db :spotlight? false)
+           :focus-editor nil}
+     :CTRL_SPC (let [s (:spotlight? db)]
+                 (if s {:db (assoc db :spotlight? false)} {:db (assoc db :spotlight? true) :focus-spotlight nil})))))
+
+(rf/reg-event-db
+ ::open-spotlight
+ (fn [db [_]]
+   (assoc db :spotlight? true)))
+
+(rf/reg-event-db
+ ::close-spotlight
+ (fn [db [_]]
+   (assoc db :spotlight? false)))
+
+(rf/reg-event-db
+ ::toggle-ref-list
+ (fn [db [_]]
+   (update-in db [:refs :active] #(if (= % :to) :from :to))))
 
 (rf/reg-event-fx
  ::focus-editor
@@ -48,3 +71,8 @@
  :focus-editor
  (fn []
    (.focus @e/editor true)))
+
+(rf/reg-fx
+ :focus-spotlight
+ (fn []
+   (.focus (.getElementById js/document "cmd-txt"))))

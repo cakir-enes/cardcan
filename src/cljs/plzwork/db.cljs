@@ -12,6 +12,7 @@
    :recent-tags ["programming/clojure" "databases/inmemory"]
    :all-tags ["programming/clojure" "databases/inmemory" "cats" "ideas/shit"]
    :recent-cards []
+   :spotlight? false
    :card-meta {:last-edited (.now js/Date)
                :tags        ["programming/swift" "nice"]
-               :refs        {:to [{:id "SOMEID"}] :from [{:id "ANTERID"}]}}})
+               :refs        {:to [{:id "SOMEID"}] :from [{:id "ANTERID"}] :active :to}}})

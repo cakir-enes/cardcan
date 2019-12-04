@@ -23,6 +23,7 @@
     "react-highlight.js": "1.0.7",
     "slate": "^0.50.4",
     "slate-html-serializer": "^0.8.11",
+    "slate-md-editor": "^1.5.4",
     "slate-react": "^0.50.5",
     "tiny-warning": "^1.0.3"
   }
