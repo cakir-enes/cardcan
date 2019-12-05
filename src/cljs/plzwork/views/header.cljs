@@ -13,8 +13,9 @@
    [:label.tgl-btn
     {:for "cb3", :data-tg-on "TO", :data-tg-off "FROM"}]])
 
-(defn handle [type arg]
-  (let [cmd  (case type
+(defn handle [t arg]
+  (println "CALLED WITH " t arg)
+  (let [cmd  (case t
                :open (case arg
                        ("i" "inbox") :open-inbox
                        ("t" "todos") :open-todos
@@ -25,7 +26,7 @@
                :ref (case arg
                       ("p" "page") :ref-page
                       :open-ref-dialog))]
-      (rf/dispatch [::evts/cmd-invoked {:id cmd}])))
+    (rf/dispatch [::evts/cmd-invoked {:id cmd}])))
 
 
 (defn parse-and-dispatch [v]
@@ -47,8 +48,8 @@
                                  "keyup"
                                  #(when (= (.-key %) "Enter") (do 
                                                                 (rf/dispatch [::evts/close-spotlight])
-                                                                (reset! value "")
-                                                                (parse-and-dispatch @value)))))
+                                                                (parse-and-dispatch @value)
+                                                                (reset! value "")))))
       :reagent-render
       (fn []
         (let [spotlight? @(rf/subscribe [::subs/spotlight?])]
