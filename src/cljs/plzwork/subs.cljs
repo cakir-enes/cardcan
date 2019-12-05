@@ -27,6 +27,17 @@
  (fn [db]
    (:card-meta db)))
 
+
+(rf/reg-sub
+ ::center-content
+ (fn [db]
+   (:center-content db)))
+
+(rf/reg-sub
+ ::all-card-metas
+ (fn [db]
+   [{:id "ZXCZXC" :last-edited "29-12-19"}]))
+
 (rf/reg-sub
  ::refs
  (fn [db]

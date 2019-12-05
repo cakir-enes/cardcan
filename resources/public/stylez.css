@@ -139,6 +139,14 @@
   grid-area: 2 / 2 / 3 / 3;
 }
 
+.all-cards {
+  background: rebeccapurple;
+}
+
+.all-cards .card {
+  background: white;
+}
+
 .dash {
   background: black;
   -webkit-transform: skew(-12deg);

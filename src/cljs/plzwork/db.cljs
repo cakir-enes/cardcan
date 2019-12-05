@@ -12,6 +12,7 @@
    :recent-tags ["programming/clojure" "databases/inmemory"]
    :all-tags ["programming/clojure" "databases/inmemory" "cats" "ideas/shit"]
    :recent-cards []
+   :center-content :editor
    :spotlight? false
    :card-meta {:last-edited (.now js/Date)
                :tags        ["programming/swift" "nice"]

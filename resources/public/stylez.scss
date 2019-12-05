@@ -106,6 +106,14 @@ $icon-color: #474554;
   grid-area: 2 / 2 / 3 / 3;
 }
 
+.all-cards {
+  background: rebeccapurple;
+
+  .card {
+    background: white;
+  }
+}
+
 .dash {
   background: black;
   transform: skew(-12deg);

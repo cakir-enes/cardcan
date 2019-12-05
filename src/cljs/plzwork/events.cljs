@@ -63,10 +63,26 @@
  (fn [_ _]
    {:focus-editor nil}))
 
+(rf/reg-event-fx 
+ ::cmd-invoked
+ (fn [{:keys [db]} [_ cmd]]
+   (let [update-center #(assoc db :center-content %)]
+     (case (:id cmd)
+       :open-cards {:db (update-center :all-cards)}
+       :open-inbox {:db (update-center :inbox-card)}
+       :open-todos {:db (update-center :todos-card)}
+       :open-ref-dialog  {:db (update-center :ref-dialog)}
+       :ref-page {:ref-current-page nil}))))
+
 (rf/reg-fx
  :update-reffed-card
  (fn [{:keys [unref? from to]}]
    (println (if unref? "REF-DELETED: " "REF-ADDED: ") from "->" to)))
+
+(rf/reg-fx
+ :ref-current-page
+ (fn []
+   (println "REF CURR PAGE FIRED")))
 
 (rf/reg-fx
  :focus-editor

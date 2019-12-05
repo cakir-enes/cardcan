@@ -26,13 +26,28 @@
   [:div.header {:style {:margin-top "0.50em"}}
    [ref-list]])
 
+(defn card [meta]
+  [:div.card])
 
-(defn main-panel []    
+(defn all-cards []
+  (let [card-metas @(rf/subscribe [::subs/all-card-metas])]
+   [:div.all-cards
+    (doall (for [meta card-metas]
+             ^{:key (:id card)}
+             [card meta]))]))
+
+(defn center-panel []
+  (let [center-content @(rf/subscribe [::subs/center-content])]
+    (case center-content
+      :editor [edi/editor-panel]
+      :all-cards [all-cards])))
+
+(defn main-panel []
   (add-shortcuts!)
   (fn []
     [:div.container
      [vh/header]
      [ref-list]
-     [edi/editor-panel]
+     [center-panel]
      [:div.recent]]))
 
