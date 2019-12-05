@@ -22,9 +22,11 @@
               ^{:key (:id card)}
               [card meta]))]))
 
+
+
 (defn center-panel []
   (let [center-content @(rf/subscribe [::subs/center-content])]
     (case center-content
-      :editor [edi/editor-panel]
+      (:editor :inbox-card :todos-card) [edi/editor-panel]
       :all-cards [all-cards]
       :ref-dialog [ref-dialog])))
