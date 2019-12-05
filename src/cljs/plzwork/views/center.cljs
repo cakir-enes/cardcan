@@ -7,7 +7,7 @@
 (defn ref-dialog []
   (let [val (r/atom "")]
     (fn []
-      [:div.rev-dialog
+      [:div.modal.rev-dialog
        [:input#ref-txt {:value @val :type "text" :on-change #(reset! val (-> % .-target .-value))}]
        [:button.cancel-btn "CANCEL"]
        [:button.ok-btn "OK"]])))
@@ -17,7 +17,7 @@
 
 (defn all-cards []
   (let [card-metas @(rf/subscribe [::subs/all-card-metas])]
-    [:div.all-cards
+    [:div.all-cards  
      (doall (for [meta card-metas]
               ^{:key (:id card)}
               [card meta]))]))
@@ -26,7 +26,10 @@
 
 (defn center-panel []
   (let [center-content @(rf/subscribe [::subs/center-content])]
-    (case center-content
-      (:editor :inbox-card :todos-card) [edi/editor-panel]
-      :all-cards [all-cards]
-      :ref-dialog [ref-dialog])))
+    [:div.center-panel
+     (when (not= center-content :all-cards) [edi/editor-panel]) 
+     (case center-content
+       :all-cards [all-cards]
+       :ref-dialog [ref-dialog]
+       nil)
+     ]))
