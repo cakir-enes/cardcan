@@ -3,7 +3,7 @@
    [reagent.core :as r]
    [re-frame.core :as rf]
    [plzwork.subs :as subs]
-   [plzwork.editor :as edi]
+   [plzwork.views.center :as c]
    [plzwork.events :as events]
    [plzwork.views.header :as vh]))
 
@@ -26,21 +26,6 @@
   [:div.header {:style {:margin-top "0.50em"}}
    [ref-list]])
 
-(defn card [meta]
-  [:div.card])
-
-(defn all-cards []
-  (let [card-metas @(rf/subscribe [::subs/all-card-metas])]
-   [:div.all-cards
-    (doall (for [meta card-metas]
-             ^{:key (:id card)}
-             [card meta]))]))
-
-(defn center-panel []
-  (let [center-content @(rf/subscribe [::subs/center-content])]
-    (case center-content
-      :editor [edi/editor-panel]
-      :all-cards [all-cards])))
 
 (defn main-panel []
   (add-shortcuts!)
@@ -48,6 +33,6 @@
     [:div.container
      [vh/header]
      [ref-list]
-     [center-panel]
+     [c/center-panel]
      [:div.recent]]))
 
