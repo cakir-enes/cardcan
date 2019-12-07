@@ -7,10 +7,24 @@
 (defn action [main opts shortcut]
   [:div.cmd [:span.main main] [:span.opts opts] [:span.shortcut shortcut]])
 
+; (defn tgl-btn []
+;   [:div
+;    [:input#cb3.tgl.tgl-skewed {:type "checkbox" :on-change  #(rf/dispatch [::evts/toggle-ref-list])}]
+;    [:label.tgl-btn
+;     {:for "cb3", :data-tg-on "TO", :data-tg-off "FROM"}]])
+
+(defn arrow []
+  [:svg
+   {:fill "none", :height "26", :width "25"}
+   [:path
+    {:fill "#000"
+     :d
+     "M6.607 20.328a1 1 0 001.16.81l8.862-1.563a1 1 0 10-.348-1.97l-7.878 1.39-1.39-7.878a1 1 0 10-1.97.348l1.564 8.863zm11.07-16.325L6.773 19.581l1.639 1.146L19.316 5.15l-1.639-1.147z"}]])
+
 (defn tgl-btn []
   [:div
-   [:input#cb3.tgl.tgl-skewed {:type "checkbox" :on-change  #(rf/dispatch [::evts/toggle-ref-list])}]
-   [:label.tgl-btn
+   [:input#cb3 {:type "checkbox" :on-change  #(rf/dispatch [::evts/toggle-ref-list])}]
+   [:label
     {:for "cb3", :data-tg-on "TO", :data-tg-off "FROM"}]])
 
 (defn handle [t arg]
@@ -68,10 +82,8 @@
 
 (defn ref-lbl []
   [:div.ref-lbl
-  ;  [:div {:style {:transition "all 0.4s ease" :background "black" :transform (str "skew(-12deg) " (when @from? "rotateX(180deg)")) :border-radius "2px"  :width "8px" :height "2em"}}]
-   [:div {:style {:transition "all 0.4s ease" :background "black" :transform (str "skew(-12deg)") :border-radius "2px"  :width "8px" :height "2em"}}]
-   [:h2 {:style {:margin "5px" :padding-bottom 2 :padding-right "5px"}} "REFS"]
-   [tgl-btn]])
+   [:h2 "References"]
+   [arrow]])
 
 (defn header []
   [:div.header

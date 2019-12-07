@@ -16,4 +16,7 @@
    :spotlight? false
    :card-meta {:last-edited (.now js/Date)
                :tags        ["programming/swift" "nice"]
-               :refs        {:to [{:id "SOMEID"}] :from [{:id "ANTERID"}] :active :to}}})
+               :refs        {:to [{:id "SOMEID" :title "ASDASDASD" :tags ["abc/asd" "zxc/ccc"]}
+                                  {:id "SOMEID2" :title "Database Systems" :tags ["cmu/db" "cs/db"]}]
+                             :from [{:id "SOMEID" :title "ASDASDASD" :tags ["abc/asd" "zxc/ccc"]}]
+                             :active :to}}})

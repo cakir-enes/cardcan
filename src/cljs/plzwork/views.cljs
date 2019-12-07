@@ -5,14 +5,30 @@
    [plzwork.subs :as subs]
    [plzwork.views.center :as c]
    [plzwork.events :as events]
-   [plzwork.views.header :as vh]))
+   [plzwork.views.header :as vh]
+   [plzwork.views.reflist :as rl]))
+
+; (defn ref-list []
+;   (let [refs @(rf/subscribe [::subs/refs])]
+;     [:ul.ref-list 
+;      (doall (for [ref refs]
+;               ^{:key ref}
+;               [:li [:h4 (:id ref)]]))]))
 
 (defn ref-list []
   (let [refs @(rf/subscribe [::subs/refs])]
-    [:ul.ref-list 
-     (doall (for [ref refs]
-              ^{:key ref}
-              [:li [:h4 (:id ref)]]))]))
+    [:ul.ref-list
+     (doall
+      (map-indexed (fn [i ref]
+                     ^{:key ref}
+                     [:li [:h4 (str i " " (:id ref))]])
+                   refs)
+      ; (for [ref refs]
+      ;   ^{:key ref}
+      ;   [:li [:h4 (:id ref)]])
+      )]))
+
+
 
 (defn add-shortcuts! []
   (.addEventListener js/document "click"
@@ -32,7 +48,7 @@
   (fn []
     [:div.container
      [vh/header]
-     [ref-list]
+     [rl/ref-list]
      [c/center-panel]
      [:div.recent]]))
 
