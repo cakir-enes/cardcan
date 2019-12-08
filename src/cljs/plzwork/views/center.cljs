@@ -2,7 +2,8 @@
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
             [plzwork.subs :as subs]
-            [plzwork.editor :as edi]))
+            [plzwork.editor :as edi]
+            [plzwork.views.spotlight :as s]))
 
 
 (defn dialog [class on-ok on-cancel lbl]
@@ -36,9 +37,9 @@
 (defn center-panel []
   (let [center-content @(rf/subscribe [::subs/center-content])]
     [:div.center-panel
-     (when (not= center-content :all-cards) [edi/editor-panel]) 
+     [s/spotlight]
+     (when (not= center-content :all-cards) [edi/editor-panel])
      (case center-content
        :all-cards [all-cards]
        :ref-dialog [ref-dialog]
-       nil)
-     ]))
+       nil)]))

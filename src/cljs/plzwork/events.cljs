@@ -42,11 +42,11 @@
      :CTRL_SPC (let [s (:spotlight? db)]
                  (if s {:db (assoc db :spotlight? false)} {:db (assoc db :spotlight? true) :focus-spotlight nil})))))
 
-(rf/reg-event-db
+(rf/reg-event-fx
  ::open-spotlight
- (fn [db [_]]
-   (println "Spot " (-> db :spotlight?))
-   (assoc db :spotlight? true)))
+ (fn [{:keys [db]} [_]]
+   {:db (assoc db :spotlight? true)
+    :focus-spotlight nil}))
 
 (rf/reg-event-db
  ::close-spotlight
