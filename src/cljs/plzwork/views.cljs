@@ -35,13 +35,22 @@
                      #(if (= "cmd-txt" (-> % .-target .-id)) (rf/dispatch [::events/open-spotlight]) (rf/dispatch [::events/close-spotlight])))
   (set! (.-onkeydown js/document)
         #(do
-           (when (= (.-key %) "Escape") (rf/dispatch [::events/shortcut-pressed :ESC]))
-           (when (and (.-ctrlKey %) (= (.-key %) " ")) (rf/dispatch [::events/shortcut-pressed :CTRL_SPC])))))
+           (let [pressed? (fn [k] (= (.-key %) k))]
+             (when (pressed? "Escape") (rf/dispatch [::events/shortcut-pressed :ESC]))
+             (when (and (.-ctrlKey %) (pressed? " ")) (rf/dispatch [::events/shortcut-pressed :CTRL-SPC]))
+             (when (and (.-ctrlKey %) (pressed? "s")) (rf/dispatch [::events/shortcut-pressed :CTRL-S]))))))
 
 (defn ref-view []
   [:div.header {:style {:margin-top "0.50em"}}
    [ref-list]])
 
+(defn right-sidebar []
+   [:div.right-sidebar
+    [rl/tags-list]
+    [:div.divider [:h4 "PICK"]]
+    [:div [:h2 "ASD"]]
+    ; [rl/recent-cards-list]
+    ])
 
 (defn main-panel []
   (add-shortcuts!)
@@ -50,5 +59,5 @@
      [vh/header]
      [rl/ref-list]
      [c/center-panel]
-     [:div.recent]]))
+     [right-sidebar]]))
 

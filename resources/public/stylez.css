@@ -85,9 +85,11 @@ body {
 
 .header #title-input {
   background: none;
+  margin-left: 20%;
   border: none;
   font-size: 1.8em;
-  margin-left: 20px;
+  -ms-grid-column-align: center;
+      justify-self: center;
 }
 
 .header .cmd-bar {
@@ -154,7 +156,7 @@ body {
   background: lightskyblue;
 }
 
-.ref-list .ref-card .ref-tags-list h4 {
+.tag {
   margin: 0;
   margin-left: 4px;
   font-weight: 400;
@@ -170,33 +172,35 @@ body {
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;
   grid-area: 2 / 2 / 3 / 3;
-  width: 100%;
-  height: 100%;
+  margin: auto;
+  width: 75%;
 }
 
-.codex-editor[class*="codex-editor"] {
-  width: 100%;
+#editor .ce-block[class*="ce-block--selected"] .ce-block__content {
+  background: #dee056e3;
 }
 
 .modal[class*="modal "] {
-  position: fixed;
-  border: 2px solid black;
-  border-left: 12px solid black;
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  left: 30%;
-  top: 120px;
+  left: 40%;
+  top: 160px;
   z-index: 4;
-  padding: 25px;
-  height: 50px;
   border-radius: 4px;
   -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
           box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-  margin: 100px auto 0;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  width: 420px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-line-pack: bottom;
       align-content: bottom;
 }
@@ -373,5 +377,32 @@ body {
 
 .spotlight .cmd-list p {
   color: whitesmoke;
+}
+
+.right-sidebar .tags-list .tag {
+  margin: 5px;
+  display: inline-block;
+}
+
+.right-sidebar .divider {
+  display: block;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  margin: 50px 0;
+}
+
+.right-sidebar .divider h3 {
+  display: inline-block;
+  z-index: 3;
+  width: auto;
+  padding: 0 20px 0 20px;
+  position: relative;
+  margin: 0;
+}
+
+.right-sidebar .ref-list .ref-card {
+  margin: 5px;
+  margin-top: 20px;
 }
 /*# sourceMappingURL=stylez.css.map */

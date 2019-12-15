@@ -37,10 +37,12 @@
  ::shortcut-pressed
  (fn [{:keys [db]} [_ shortcut]]
    (case shortcut
-     :ESC {:db (assoc db :spotlight? false)
+     :ESC {:db (assoc (assoc db :spotlight? false) :center-content nil)
            :focus-editor nil}
-     :CTRL_SPC (let [s (:spotlight? db)]
-                 (if s {:db (assoc db :spotlight? false)} {:db (assoc db :spotlight? true) :focus-spotlight nil})))))
+     :CTRL-SPC (let [s (:spotlight? db)]
+                 (if s {:db (assoc db :spotlight? false)}
+                     {:db (assoc db :spotlight? true) :focus-spotlight nil}))
+     :CTRL-S {:save-card (:card-meta db)})))
 
 (rf/reg-event-fx
  ::open-spotlight
@@ -90,6 +92,12 @@
    (.focus @e/editor true)))
 
 (rf/reg-fx
+ :save-card
+ (fn [meta]
+   (println "SAVING CARD WITH: " meta)))
+
+(rf/reg-fx
  :focus-spotlight
  (fn []
-   (.focus (.getElementById js/document "cmd-txt"))))
+   (println "FOCUSING SPOTLIGHT")
+   (js/setTimeout #(.focus (.getElementById js/document "cmd-txt")) 100)))

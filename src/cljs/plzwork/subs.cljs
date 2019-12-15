@@ -27,6 +27,11 @@
  (fn [db]
    (:card-meta db)))
 
+(rf/reg-sub
+ ::tags
+ (fn [db]
+   (:tags (:card-meta db))))
+
 
 (rf/reg-sub
  ::center-content

@@ -52,6 +52,7 @@
                             :type "text"
                             :id "cmd-txt"
                             :auto-complete "off"
+                            :auto-focus true
                             :value @value
                             :style {:display (if spotlight? "flex" "none")}
                             :on-click #(do (println "CLICK") (rf/dispatch-sync [::evts/open-spotlight]))

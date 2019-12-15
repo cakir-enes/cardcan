@@ -4,7 +4,7 @@
     "shadow-cljs": "2.8.73"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.16.0",
+    "@editorjs/editorjs": "^2.16.1",
     "@editorjs/header": "^2.3.2",
     "@editorjs/quote": "^2.3.0",
     "create-react-class": "15.6.3",
@@ -16,15 +16,15 @@
     "prosemirror-schema-basic": "^1.1.2",
     "prosemirror-schema-list": "^1.1.2",
     "prosemirror-state": "^1.3.2",
-    "prosemirror-view": "^1.13.4",
+    "prosemirror-view": "^1.13.5",
     "quill": "^1.3.7",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-highlight.js": "1.0.7",
-    "slate": "^0.50.4",
+    "slate": "^0.50.8",
     "slate-html-serializer": "^0.8.11",
     "slate-md-editor": "^1.5.4",
-    "slate-react": "^0.50.5",
+    "slate-react": "^0.50.11",
     "tiny-warning": "^1.0.3"
   }
 }

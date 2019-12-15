@@ -29,7 +29,7 @@
 (defn title []
   (let [value (r/atom nil)]
     (fn []
-      [:input#title-input {:placeholder "# Title" :value @value :on-change #(reset! value (-> % .-target .-value))}])))
+      [:input#title-input {:placeholder "TITLE" :value @value :on-change #(reset! value (-> % .-target .-value))}])))
 
 (defn ref-lbl []
   [:div.ref-lbl {:on-click #(rf/dispatch [::evts/toggle-ref-list])}

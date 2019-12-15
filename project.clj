@@ -37,7 +37,7 @@
             "karma"        ["with-profile" "prod" "do"
                             ["clean"]
                             ["run" "-m" "shadow.cljs.devtools.cli" "compile" "karma-test"]
-                            ["shell" "karma" "start" "--single-run" "--reporters" "junit,dots"]]}
+                          ["shell" "karma" "start" "--single-run" "--reporters" "junit,dots"]]}
 
   :profiles
   {:dev
