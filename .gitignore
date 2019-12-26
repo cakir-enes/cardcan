@@ -3,4 +3,7 @@
 /*-init.clj
 /resources/public/js/compiled
 out
-.shadow-cljs/*
+.shadow-cljs/
+/public/assets
+node-modules/
+.DS_Store
