@@ -2,9 +2,9 @@
   (:require
    [re-frame.core :as rf]
    [plzwork.db :as db]
+   [plzwork.storage :as s]
    [day8.re-frame.tracing :refer-macros [fn-traced defn-traced]]
-   [plzwork.editor :as e]
-   ))
+   [plzwork.editor :as editor]))
 
 (rf/reg-event-db
  ::initialize-db
@@ -89,12 +89,13 @@
 (rf/reg-fx
  :focus-editor
  (fn []
-   (.focus @e/editor true)))
+   (.focus @editor/editor true)))
 
 (rf/reg-fx
  :save-card
  (fn [meta]
-   (println "SAVING CARD WITH: " meta)))
+   (editor/content #(do (println "SAVING CARD WITH: " meta " AND " %)
+                        (s/store-card {:meta meta :content %})))))
 
 (rf/reg-fx
  :focus-spotlight

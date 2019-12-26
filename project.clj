@@ -43,9 +43,10 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.11"]
                    [day8.re-frame/re-frame-10x "0.4.5"]
-                   [day8.re-frame/tracing "0.5.3"]]}
+                   [day8.re-frame/tracing "0.5.3"]
+                   [io.replikativ/konserve "0.5.1"]]}
 
-   :prod { :dependencies [[day8.re-frame/tracing-stubs "0.5.3"]]}
+   :prod {:dependencies [[day8.re-frame/tracing-stubs "0.5.3"]]}
 
    :uberjar {:source-paths ["env/prod/clj"]
              :dependencies [[day8.re-frame/tracing-stubs "0.5.3"]]
@@ -53,5 +54,4 @@
              :main         plzwork.server
              :aot          [plzwork.server]
              :uberjar-name "plzwork.jar"
-             :prep-tasks   ["compile" ["prod"]]}
-   })
+             :prep-tasks   ["compile" ["prod"]]}})

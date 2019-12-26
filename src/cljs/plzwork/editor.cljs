@@ -23,8 +23,8 @@
                  :tools {:header {:class header :inlineToolbar ["link"]}
                          :list {:class lists :inlineToolbar true}}})))
 
-(defn content [editor]
-  (.save @editor))
+(defn content [cb]
+  (.then (.save @editor) cb))
 
 
 (def  defaultValue (clj->js  [{:type "paragraph"
