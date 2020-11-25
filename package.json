@@ -8,7 +8,7 @@
     "@editorjs/header": "^2.3.2",
     "@editorjs/quote": "^2.3.0",
     "create-react-class": "15.6.3",
-    "highlight.js": "9.15.10",
+    "highlight.js": "10.1.2",
     "immutable": "^4.0.0-rc.12",
     "is-hotkey": "^0.1.6",
     "prosemirror-example-setup": "^1.1.2",
